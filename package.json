@@ -6,7 +6,12 @@
     "build": "blitz build",
     "start": "blitz start",
     "studio": "blitz prisma studio",
+    "routes": "blitz routes",
+    "prisma:studio": "blitz prisma studio",
+    "prisma:migrate:dev": "blitz prisma migrate dev --skip-seed",
+    "prisma:migrate:deploy": "blitz prisma migrate deploy --skip-seed",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "prisma:seed": "blitz db seed",
     "test": "jest",
     "test:watch": "jest --watch",
     "prepare": "husky install"
