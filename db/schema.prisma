@@ -23,6 +23,14 @@ model User {
 
   tokens   Token[]
   sessions Session[]
+
+  currentPet Int?
+  Pet        Pet[]
+  Weight     Weight[]
+  Phvalue    Phvalue[]
+  Insulin    Insulin[]
+  Bloodsugar Bloodsugar[]
+  PetMember  PetMember[]
 }
 
 model Session {
@@ -59,4 +67,94 @@ model Token {
 
 enum TokenType {
   RESET_PASSWORD
+}
+
+model Pet {
+  id         Int          @id @default(autoincrement())
+  userId     Int
+  name       String
+  createdAt  DateTime?    @default(now())
+  updatedAt  DateTime?    @updatedAt
+  user       User?        @relation(fields: [userId], references: [id])
+  weight     Weight[]
+  phvalue    Phvalue[]
+  insulin    Insulin[]
+  bloodsugar Bloodsugar[]
+  member     PetMember[]
+  invitation Invitation[]
+}
+
+model Weight {
+  id        Int       @id @default(autoincrement())
+  petId     Int
+  userId    Int
+  date      DateTime  @db.Date
+  time      DateTime  @db.Time
+  value     Float
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  pet       Pet?      @relation(fields: [petId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
+}
+
+model Phvalue {
+  id        Int       @id @default(autoincrement())
+  petId     Int
+  userId    Int
+  date      DateTime  @db.Date
+  time      DateTime  @db.Time
+  value     Float
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  pet       Pet?      @relation(fields: [petId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
+}
+
+model Insulin {
+  id        Int       @id @default(autoincrement())
+  petId     Int
+  userId    Int
+  date      DateTime  @db.Date
+  time      DateTime  @db.Time
+  value     Float
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  pet       Pet?      @relation(fields: [petId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
+}
+
+model Bloodsugar {
+  id        Int       @id @default(autoincrement())
+  petId     Int
+  userId    Int
+  date      DateTime  @db.Date
+  time      DateTime  @db.Time
+  value     Float
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  pet       Pet?      @relation(fields: [petId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
+}
+
+model PetMember {
+  id        Int       @id @default(autoincrement())
+  petId     Int
+  userId    Int
+  role      String
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  pet       Pet?      @relation(fields: [petId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
+}
+
+model Invitation {
+  id        Int       @id @default(autoincrement())
+  petId     Int
+  email     String
+  role      String
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  pet       Pet?      @relation(fields: [petId], references: [id])
+
+  @@unique([petId, email])
 }
