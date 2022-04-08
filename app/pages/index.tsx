@@ -1,9 +1,10 @@
 import { Suspense } from "react"
-import { Image, Link, BlitzPage, useMutation, Routes } from "blitz"
+import { Image, Link, BlitzPage, useMutation, Routes, useQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
+import getAbility from "../guard/queries/getAbility"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
@@ -13,6 +14,17 @@ import logo from "public/logo.png"
 const UserInfo = () => {
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
+
+  const [[canCreateComment, canDeleteComment], { isLoading }] = useQuery(getAbility, [
+    ["create", "comment"],
+    ["delete", "comment" /* args */],
+  ])
+
+  console.log(canCreateComment.can) // true
+  console.log(canCreateComment.reason) // "some reason"
+
+  console.log(canDeleteComment.can) // false
+  console.log(canDeleteComment.reason) // "some reason"
 
   if (currentUser) {
     return (
@@ -52,217 +64,41 @@ const UserInfo = () => {
 
 const Home: BlitzPage = () => {
   return (
-    <div className="container">
-      <main>
-        <div className="logo">
-          <Image src={logo} alt="blitzjs" />
+    <>
+      <div className="bg-gray-100">
+        <div className="relative max-w-7xl mx-auto">
+          <p className="text-center px-4 sm:px-6 lg:px-8">Herzlich Willkommen bei Feliner!</p>
         </div>
-        <p>
-          <strong>Congrats!</strong> Your app is ready, including user sign-up and log-in.
-        </p>
-        <div className="buttons" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-          <Suspense fallback="Loading...">
-            <UserInfo />
-          </Suspense>
+        <div className="relative">
+          <div className="shape-top-gray">
+            <svg
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+                opacity=".25"
+                className="shape-fill"
+              ></path>
+              <path
+                d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+                opacity=".5"
+                className="shape-fill"
+              ></path>
+              <path
+                d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+                className="shape-fill"
+              ></path>
+            </svg>
+          </div>
+          <div className="bg-white min-h-min">
+            <div className="max-w-7xl mx-auto pt-32 px-4 sm:px-6 lg:px-8">dfsdfd</div>
+          </div>
         </div>
-        <p>
-          <strong>
-            To add a new model to your app, <br />
-            run the following in your terminal:
-          </strong>
-        </p>
-        <pre>
-          <code>blitz generate all project name:string</code>
-        </pre>
-        <div style={{ marginBottom: "1rem" }}>(And select Yes to run prisma migrate)</div>
-        <div>
-          <p>
-            Then <strong>restart the server</strong>
-          </p>
-          <pre>
-            <code>Ctrl + c</code>
-          </pre>
-          <pre>
-            <code>blitz dev</code>
-          </pre>
-          <p>
-            and go to{" "}
-            <Link href="/projects">
-              <a>/projects</a>
-            </Link>
-          </p>
-        </div>
-        <div className="buttons" style={{ marginTop: "5rem" }}>
-          <a
-            className="button"
-            href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-          <a
-            className="button-outline"
-            href="https://github.com/blitz-js/blitz"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github Repo
-          </a>
-          <a
-            className="button-outline"
-            href="https://discord.blitzjs.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Discord Community
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://blitzjs.com?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by Blitz.js
-        </a>
-      </footer>
-
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;700&display=swap");
-
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: "Libre Franklin", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-        }
-
-        * {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          box-sizing: border-box;
-        }
-        .container {
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main p {
-          font-size: 1.2rem;
-        }
-
-        p {
-          text-align: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 60px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #45009d;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer a {
-          color: #f4f4f4;
-          text-decoration: none;
-        }
-
-        .logo {
-          margin-bottom: 2rem;
-        }
-
-        .logo img {
-          width: 300px;
-        }
-
-        .buttons {
-          display: grid;
-          grid-auto-flow: column;
-          grid-gap: 0.5rem;
-        }
-        .button {
-          font-size: 1rem;
-          background-color: #6700eb;
-          padding: 1rem 2rem;
-          color: #f4f4f4;
-          text-align: center;
-        }
-
-        .button.small {
-          padding: 0.5rem 1rem;
-        }
-
-        .button:hover {
-          background-color: #45009d;
-        }
-
-        .button-outline {
-          border: 2px solid #6700eb;
-          padding: 1rem 2rem;
-          color: #6700eb;
-          text-align: center;
-        }
-
-        .button-outline:hover {
-          border-color: #45009d;
-          color: #45009d;
-        }
-
-        pre {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          text-align: center;
-        }
-        code {
-          font-size: 0.9rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-            Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-    </div>
+      </div>
+    </>
   )
 }
 

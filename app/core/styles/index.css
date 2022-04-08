@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* nunito-regular - latin */
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/nunito-v16-latin-regular.eot"); /* IE9 Compat Modes */
+  src: local(""), url("../fonts/nunito-v16-latin-regular.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/nunito-v16-latin-regular.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("../fonts/nunito-v16-latin-regular.woff") format("woff"),
+    /* Modern Browsers */ url("../fonts/nunito-v16-latin-regular.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("../fonts/nunito-v16-latin-regular.svg#Nunito") format("svg"); /* Legacy iOS */
+}
+/* nunito-600 - latin */
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/nunito-v16-latin-600.eot"); /* IE9 Compat Modes */
+  src: local(""), url("../fonts/nunito-v16-latin-600.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/nunito-v16-latin-600.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("../fonts/nunito-v16-latin-600.woff") format("woff"),
+    /* Modern Browsers */ url("../fonts/nunito-v16-latin-600.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("../fonts/nunito-v16-latin-600.svg#Nunito") format("svg"); /* Legacy iOS */
+}
+/* nunito-700 - latin */
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/nunito-v16-latin-700.eot"); /* IE9 Compat Modes */
+  src: local(""), url("../fonts/nunito-v16-latin-700.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/nunito-v16-latin-700.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("../fonts/nunito-v16-latin-700.woff") format("woff"),
+    /* Modern Browsers */ url("../fonts/nunito-v16-latin-700.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("../fonts/nunito-v16-latin-700.svg#Nunito") format("svg"); /* Legacy iOS */
+}
+
+body {
+  @apply bg-white;
+}
+
+.shape-bottom-gray,
+.shape-bottom-white,
+.shape-bottom-feliner {
+  @apply absolute bottom-0 left-0 w-full overflow-hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.shape-bottom-gray svg,
+.shape-bottom-white svg,
+.shape-bottom-feliner svg {
+  @apply block relative;
+  width: calc(135% + 1.3px);
+}
+
+.shape-top-gray,
+.shape-top-white,
+.shape-top-feliner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.shape-top-gray svg,
+.shape-top-white svg,
+.shape-top-feliner svg {
+  position: relative;
+  display: block;
+  width: calc(144% + 1.3px);
+  height: 108px;
+}
+
+.shape-bottom-gray .shape-fill,
+.shape-top-gray .shape-fill {
+  @apply fill-gray-100;
+}
+
+.shape-bottom-white .shape-fill,
+.shape-top-white .shape-fill {
+  @apply fill-white;
+}
+
+.shape-bottom-feliner .shape-fill,
+.shape-top-feliner .shape-fill {
+  @apply fill-feliner-400;
+}
