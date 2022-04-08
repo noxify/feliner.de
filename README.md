@@ -1,5 +1,9 @@
 # Feliner
 
+Repository which contains the sources for www.feliner.de.
+
+Currently this is a WIP repository.
+
 # Used Packages
 
 - BlitzJS
