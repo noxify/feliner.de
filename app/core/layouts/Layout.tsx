@@ -1,7 +1,11 @@
 import { Head, BlitzLayout } from "blitz"
 import Header from "../components/Header"
 
-const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
+const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode; noHeader?: boolean }> = ({
+  title,
+  noHeader,
+  children,
+}) => {
   return (
     <>
       <Head>
@@ -9,7 +13,7 @@ const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      {noHeader !== true ? <Header /> : <></>}
 
       {children}
     </>
